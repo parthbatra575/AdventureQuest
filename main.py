@@ -1,43 +1,37 @@
 import pygame
 import sys
 
-# Initialize Pygame
+from settings import *
+from player import Player
+
 pygame.init()
 
-# Screen size
-WIDTH = 1000
-HEIGHT = 600
-
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Adventure Quest")
 
-# Colors
-SKY = (135, 206, 235)
-WHITE = (255, 255, 255)
-
-# Game clock
 clock = pygame.time.Clock()
+
+player = Player()
 
 running = True
 
 while running:
 
-    # Check events
+    clock.tick(FPS)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # Draw background
+    player.update()
+
     screen.fill(SKY)
 
-    # Title
-    font = pygame.font.SysFont("Arial", 50)
-    text = font.render("Adventure Quest", True, WHITE)
-    screen.blit(text, (300, 20))
+    pygame.draw.rect(screen,GRASS,(0,520,WIDTH,80))
 
-    pygame.display.update()
+    player.draw(screen)
 
-    clock.tick(60)
+    pygame.display.flip()
 
 pygame.quit()
 sys.exit()
